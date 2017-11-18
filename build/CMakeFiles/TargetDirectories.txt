@@ -1,0 +1,4 @@
+/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles/edit_cache.dir
+/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles/rebuild_cache.dir
+/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles/usbCamera_save.dir
+/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles/camera_calibration.dir
