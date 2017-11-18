@@ -245,7 +245,7 @@ int main(int argc, char** argv)
     clock_t prevTimestamp = 0;
     const Scalar RED(0,0,255), GREEN(0,255,0);
     const char ESC_KEY = 27;
-
+    std::cout << "debug_2\n";
     for(int i = 0;;++i)
     {
       Mat view;
@@ -314,7 +314,7 @@ int main(int argc, char** argv)
                 // Draw the corners.
                 drawChessboardCorners( view, s.boardSize, Mat(pointBuf), found );
         }
-
+        std::cout << "debug_3\n";
         //----------------------------- Output Text ------------------------------------------------
         string msg = (mode == CAPTURING) ? "100/100" :
                       mode == CALIBRATED ? "Calibrated" : "Press 'g' to start";
@@ -358,8 +358,9 @@ int main(int argc, char** argv)
             imagePoints.clear();
         }
     }
-
+    std::cout << "debug_4\n";
     // -----------------------Show the undistorted image for the image list ------------------------
+    
     if( s.inputType == Settings::IMAGE_LIST && s.showUndistorsed )
     {
         Mat view, rview, map1, map2;
@@ -379,8 +380,8 @@ int main(int argc, char** argv)
                 break;
         }
     }
-
-
+    
+    cv::destroyAllWindows();
     return 0;
 }
 

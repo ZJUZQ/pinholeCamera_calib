@@ -41,7 +41,9 @@ int main(int argc, const char** argv)
         help();
         return -1;
     }
-    cv::namedWindow("show");
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 960);
+    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
+    cv::namedWindow("show", 0);
     int count = 0;
     cv::Mat image;
     for(;;){
