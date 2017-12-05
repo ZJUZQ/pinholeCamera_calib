@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vortex/catkin__vo/src/pinholeCamera_calibration
+CMAKE_SOURCE_DIR = /home/zq/pinholeCamera_calib
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vortex/catkin__vo/src/pinholeCamera_calibration/build
+CMAKE_BINARY_DIR = /home/zq/pinholeCamera_calib/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles /home/zq/pinholeCamera_calib/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

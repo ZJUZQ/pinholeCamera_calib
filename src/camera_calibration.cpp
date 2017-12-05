@@ -136,8 +136,11 @@ public:
             inputCapture >> view0;
             view0.copyTo(result);
         }
-        else if( atImageList < (int)imageList.size() )
+        else if( atImageList < (int)imageList.size() ){
+            //printf("\n%s Avg_Reprojection_Error = ", imageList[atImageList]);
+            _currImage = imageList[atImageList];
             result = imread(imageList[atImageList++], CV_LOAD_IMAGE_COLOR);
+        }
 
         return result;
     }
@@ -182,6 +185,8 @@ public:
     bool goodInput;
     int flag;
 
+    std::string _currImage;
+
 private:
     string patternToUse;
 
@@ -199,7 +204,7 @@ static void read(const FileNode& node, Settings& x, const Settings& default_valu
 enum { DETECTION = 0, CAPTURING = 1, CALIBRATED = 2 };
 
 bool runCalibrationAndSave(Settings& s, Size imageSize, Mat&  cameraMatrix, Mat& distCoeffs,
-                           vector<vector<Point2f> > imagePoints );
+                           vector<vector<Point2f> > imagePoints, std::vector<std::string> &imgsFoundCheckerboard);
 
 const char* keys = 
 {   "{help h ?   | |  print help message}"
@@ -238,6 +243,7 @@ int main(int argc, char** argv)
         return -1;
     }
 
+    std::vector<std::string> imgsFoundCheckerboard; // store images in which can found checkerboard
     vector<vector<Point2f> > imagePoints;
     Mat cameraMatrix, distCoeffs;
     Size imageSize;
@@ -245,7 +251,7 @@ int main(int argc, char** argv)
     clock_t prevTimestamp = 0;
     const Scalar RED(0,0,255), GREEN(0,255,0);
     const char ESC_KEY = 27;
-    std::cout << "debug_2\n";
+    
     for(int i = 0;;++i)
     {
       Mat view;
@@ -256,7 +262,7 @@ int main(int argc, char** argv)
       //-----  If no more image, or got enough, then stop calibration and show result -------------
       if( mode == CAPTURING && imagePoints.size() >= (unsigned)s.nrFrames )
       {
-          if( runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints))
+          if( runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints, imgsFoundCheckerboard) )
               mode = CALIBRATED;
           else
               mode = DETECTION;
@@ -264,7 +270,7 @@ int main(int argc, char** argv)
       if(view.empty())          // If no more images then run calibration, save and stop loop.
       {
             if( imagePoints.size() > 0 )
-                runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints);
+                runCalibrationAndSave(s, imageSize,  cameraMatrix, distCoeffs, imagePoints, imgsFoundCheckerboard);
             break;
       }
 
@@ -307,6 +313,7 @@ int main(int argc, char** argv)
                     (!s.inputCapture.isOpened() || clock() - prevTimestamp > s.delay*1e-3*CLOCKS_PER_SEC) )
                 {
                     imagePoints.push_back(pointBuf);
+                    imgsFoundCheckerboard.push_back(s._currImage);
                     prevTimestamp = clock();
                     blinkOutput = s.inputCapture.isOpened();
                 }
@@ -314,7 +321,7 @@ int main(int argc, char** argv)
                 // Draw the corners.
                 drawChessboardCorners( view, s.boardSize, Mat(pointBuf), found );
         }
-        std::cout << "debug_3\n";
+        //std::cout << "debug_3\n";
         //----------------------------- Output Text ------------------------------------------------
         string msg = (mode == CAPTURING) ? "100/100" :
                       mode == CALIBRATED ? "Calibrated" : "Press 'g' to start";
@@ -389,7 +396,8 @@ static double computeReprojectionErrors( const vector<vector<Point3f> >& objectP
                                          const vector<vector<Point2f> >& imagePoints,
                                          const vector<Mat>& rvecs, const vector<Mat>& tvecs,
                                          const Mat& cameraMatrix , const Mat& distCoeffs,
-                                         vector<float>& perViewErrors)
+                                         vector<float>& perViewErrors
+                                         )
 {
     vector<Point2f> imagePoints2;
     int i, totalPoints = 0;
@@ -437,7 +445,7 @@ static void calcBoardCornerPositions(Size boardSize, float squareSize, vector<Po
 
 static bool runCalibration( Settings& s, Size& imageSize, Mat& cameraMatrix, Mat& distCoeffs,
                             vector<vector<Point2f> > imagePoints, vector<Mat>& rvecs, vector<Mat>& tvecs,
-                            vector<float>& reprojErrs,  double& totalAvgErr)
+                            vector<float>& reprojErrs,  double& totalAvgErr, std::vector<std::string> &imgsFoundCheckerboard)
 {
 
     cameraMatrix = Mat::eye(3, 3, CV_64F);
@@ -462,6 +470,10 @@ static bool runCalibration( Settings& s, Size& imageSize, Mat& cameraMatrix, Mat
     totalAvgErr = computeReprojectionErrors(objectPoints, imagePoints,
                                              rvecs, tvecs, cameraMatrix, distCoeffs, reprojErrs);
 
+    for(int i = 0; i < objectPoints.size(); i++){
+        if(reprojErrs[i] > totalAvgErr)
+            std::cout << "\n" << imgsFoundCheckerboard[i] << " has large reprojErrs: " << reprojErrs[i] << std::endl;
+    }
     return ok;
 }
 
@@ -544,14 +556,14 @@ static void saveCameraParams( Settings& s, Size& imageSize, Mat& cameraMatrix, M
     }
 }
 
-bool runCalibrationAndSave(Settings& s, Size imageSize, Mat&  cameraMatrix, Mat& distCoeffs,vector<vector<Point2f> > imagePoints )
+bool runCalibrationAndSave(Settings& s, Size imageSize, Mat&  cameraMatrix, Mat& distCoeffs, vector<vector<Point2f> > imagePoints , std::vector<std::string> &imgsFoundCheckerboard)
 {
     vector<Mat> rvecs, tvecs;
     vector<float> reprojErrs;
     double totalAvgErr = 0;
 
     bool ok = runCalibration(s,imageSize, cameraMatrix, distCoeffs, imagePoints, rvecs, tvecs,
-                             reprojErrs, totalAvgErr);
+                             reprojErrs, totalAvgErr, imgsFoundCheckerboard);
     cout << (ok ? "Calibration succeeded" : "Calibration failed")
         << ". avg re projection error = "  << totalAvgErr ;
 

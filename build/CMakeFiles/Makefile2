@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vortex/catkin__vo/src/pinholeCamera_calibration
+CMAKE_SOURCE_DIR = /home/zq/pinholeCamera_calib
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vortex/catkin__vo/src/pinholeCamera_calibration/build
+CMAKE_BINARY_DIR = /home/zq/pinholeCamera_calib/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/usbCamera_save.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/vortex/catkin__vo/src/pinholeCamera_calibration/build
 CMakeFiles/usbCamera_save.dir/all:
 	$(MAKE) -f CMakeFiles/usbCamera_save.dir/build.make CMakeFiles/usbCamera_save.dir/depend
 	$(MAKE) -f CMakeFiles/usbCamera_save.dir/build.make CMakeFiles/usbCamera_save.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles --progress-num=3,4 "Built target usbCamera_save"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zq/pinholeCamera_calib/build/CMakeFiles --progress-num=3,4 "Built target usbCamera_save"
 .PHONY : CMakeFiles/usbCamera_save.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/usbCamera_save.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/usbCamera_save.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/usbCamera_save.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles 0
 .PHONY : CMakeFiles/usbCamera_save.dir/rule
 
 # Convenience name for target.
@@ -103,7 +103,7 @@ clean: CMakeFiles/usbCamera_save.dir/clean
 CMakeFiles/camera_calibration.dir/all:
 	$(MAKE) -f CMakeFiles/camera_calibration.dir/build.make CMakeFiles/camera_calibration.dir/depend
 	$(MAKE) -f CMakeFiles/camera_calibration.dir/build.make CMakeFiles/camera_calibration.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles --progress-num=1,2 "Built target camera_calibration"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zq/pinholeCamera_calib/build/CMakeFiles --progress-num=1,2 "Built target camera_calibration"
 .PHONY : CMakeFiles/camera_calibration.dir/all
 
 # Include target in all.
@@ -113,9 +113,9 @@ all: CMakeFiles/camera_calibration.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/camera_calibration.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/camera_calibration.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vortex/catkin__vo/src/pinholeCamera_calibration/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zq/pinholeCamera_calib/build/CMakeFiles 0
 .PHONY : CMakeFiles/camera_calibration.dir/rule
 
 # Convenience name for target.
