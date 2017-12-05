@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<opencv_storage>
+
+<!-- Number of inner corners per a item row and column. (square, circle) -->
+<BoardSize_Width> 9</BoardSize_Width>
+<BoardSize_Height>6</BoardSize_Height>
+
+<!-- The size of a square in some user defined metric system (pixel, millimeter)-->
+<Square_Size>82</Square_Size>
+
+<!-- The type of input used for camera calibration. One of: CHESSBOARD CIRCLES_GRID ASYMMETRIC_CIRCLES_GRID -->
+<Calibrate_Pattern>"CHESSBOARD"</Calibrate_Pattern>
+
+<fps>2</fps>
+<height>1080</height>
+<width>1920</width>
+<num_cams>4</num_cams>
+<cam_imgList>
+	hc_111.xml
+	hc_113.xml
+	hc_114.xml
+	hc_118.xml
+</cam_imgList>
+<numImgsGenerate>600</numImgsGenerate>
+
+
+
+</opencv_storage>
